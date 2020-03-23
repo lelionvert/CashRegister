@@ -9,6 +9,7 @@ public final class ItemReference {
         this.unitPrice = unitPrice;
     }
 
+
     public static Builder aReference() {
         return new Builder();
     }
@@ -16,8 +17,8 @@ public final class ItemReference {
     public static class Builder {
         private double unitPrice;
         private String itemCode;
-
-        public Builder() {
+        
+        private Builder() {
         }
 
         public Builder withItemCode(String itemCode) {
@@ -31,7 +32,7 @@ public final class ItemReference {
         }
 
         public ItemReference build() {
-            return new ItemReference(itemCode, unitPrice);
+            return new ItemReference(itemCode,unitPrice);
         }
 
     }
