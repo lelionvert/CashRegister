@@ -33,7 +33,7 @@ public class Price {
                 '}';
     }
 
-    public Price multiplyBy(double quantity) {
-        return valueOf(price * quantity);
+    public Price multiplyBy(Quantity quantity) {
+        return valueOf(quantity.multiplyBy(price));
     }
 }
