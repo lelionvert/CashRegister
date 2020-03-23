@@ -1,6 +1,7 @@
 package cashregister;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 public abstract class Result {
     public static Result found(Price price) {
@@ -10,6 +11,10 @@ public abstract class Result {
     public static Result notFound(String invalidItemCode) {
         return new NotFound(invalidItemCode);
     }
+
+    private Result() {}
+
+    public abstract Result map(Function<Price, Price> f);
 
     private static class Found extends Result {
         private final Price price;
@@ -36,6 +41,11 @@ public abstract class Result {
             return "Found{" +
                     "price=" + price +
                     '}';
+        }
+
+        @Override
+        public Result map(Function<Price, Price> f) {
+            return Result.found(f.apply(price));
         }
     }
 
@@ -64,6 +74,11 @@ public abstract class Result {
             return "NotFound{" +
                     "invalidItemCode='" + invalidItemCode + '\'' +
                     '}';
+        }
+
+        @Override
+        public Result map(Function<Price, Price> f) {
+            return this;
         }
     }
 }
