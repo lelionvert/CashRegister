@@ -39,10 +39,10 @@ public abstract class Result {
         }
     }
 
-    public static class NotFound extends Result {
+    private static class NotFound extends Result {
         private final String invalidItemCode;
 
-        public NotFound(String invalidItemCode) {
+        private NotFound(String invalidItemCode) {
             this.invalidItemCode = invalidItemCode;
         }
 
