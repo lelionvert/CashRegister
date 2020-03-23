@@ -34,6 +34,6 @@ public class Price {
     }
 
     public Price multiplyBy(double quantity) {
-        return new Price(price * quantity);
+        return valueOf(price * quantity);
     }
 }
