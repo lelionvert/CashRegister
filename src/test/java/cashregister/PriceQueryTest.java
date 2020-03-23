@@ -9,8 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PriceQueryTest {
 
     private PriceQuery priceQuery = new InmemoryCatalog(
-            new ItemReference("APPLE", 1.20),
-            new ItemReference("BANANA", 1.90)
+            ItemReference.aReference().withItemCode("APPLE").withUnitPrice(1.20).build(),
+            ItemReference.aReference().withItemCode("BANANA").withUnitPrice(1.90).build()
     );
 
     @ParameterizedTest
@@ -20,4 +20,8 @@ public class PriceQueryTest {
         assertThat(priceQuery.findPrice(itemCode)).isEqualTo(Price.valueOf(unitPrice));
     }
 
+    @Test
+    void search_an_unknow_item() {
+        assertThat(priceQuery.findPrice("PEACH")).isNull();
+    }
 }

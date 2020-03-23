@@ -1,8 +1,8 @@
 package cashregister;
 
-public class InmemoryCatalog implements PriceQuery {
+public final class InmemoryCatalog implements PriceQuery {
 
-    private ItemReference[] itemReferences;
+    private final ItemReference[] itemReferences;
 
     public InmemoryCatalog(ItemReference...itemReferences) {
         this.itemReferences = itemReferences;
