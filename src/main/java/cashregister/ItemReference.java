@@ -4,11 +4,10 @@ public final class ItemReference {
     private final double unitPrice;
     private final String itemCode;
 
-    public ItemReference(String itemCode, double unitPrice) {
+    private ItemReference(String itemCode, double unitPrice) {
         this.itemCode = itemCode;
         this.unitPrice = unitPrice;
     }
-
 
     public static Builder aReference() {
         return new Builder();

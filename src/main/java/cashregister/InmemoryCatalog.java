@@ -4,16 +4,16 @@ public final class InmemoryCatalog implements PriceQuery {
 
     private final ItemReference[] itemReferences;
 
-    public InmemoryCatalog(ItemReference...itemReferences) {
+    public InmemoryCatalog(ItemReference... itemReferences) {
         this.itemReferences = itemReferences;
     }
 
-    public Price findPrice(String itemCode) {
-        for (ItemReference itemReference: itemReferences) {
-            if(itemReference.isCodeEqualTo(itemCode)){
-                return itemReference.buildPrice();
+    public Result findPrice(String itemCode) {
+        for (ItemReference itemReference : itemReferences) {
+            if (itemReference.isCodeEqualTo(itemCode)) {
+                return Result.found(itemReference.buildPrice());
             }
         }
-        return null;
+        return Result.notFound(itemCode);
     }
 }
