@@ -9,22 +9,22 @@ public class CashRegisterTest {
     @Test
     void calculate_total() {
         CashRegister cashRegister = new CashRegister();
-        Price price = new Price(1.20);
+        Price price = Price.valueOf(1.20);
         double quantity = 1;
 
         Price total = cashRegister.total(price, quantity);
 
-        assertThat(total).isEqualTo(new Price(1.2));
+        assertThat(total).isEqualTo(Price.valueOf(1.2));
     }
 
     @Test
     void calculate_total_when_quantity_different_of_one() {
         CashRegister cashRegister = new CashRegister();
-        Price price = new Price(1.2);
+        Price price = Price.valueOf(1.2);
         double quantity = 2;
 
         Price total = cashRegister.total(price, quantity);
 
-        assertThat(total).isEqualTo(new Price(2.4));
+        assertThat(total).isEqualTo(Price.valueOf(2.4));
     }
 }

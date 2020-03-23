@@ -2,11 +2,15 @@ package cashregister;
 
 import java.util.Objects;
 
-public final class Price {
+public class Price {
     private final double price;
 
-    public Price(double price) {
+    private Price(double price) {
         this.price = price;
+    }
+
+    public static Price valueOf(double price) {
+        return new Price(price);
     }
 
     @Override
