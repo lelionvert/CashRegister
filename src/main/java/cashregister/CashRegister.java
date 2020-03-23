@@ -1,7 +1,7 @@
 package cashregister;
 
 public class CashRegister {
-    public double total(double price, double quantity) {
-        return price * quantity;
+    public Price total(Price price, double quantity) {
+        return price.multiplyBy(quantity);
     }
 }
