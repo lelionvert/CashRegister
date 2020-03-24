@@ -31,4 +31,13 @@ public class CashRegisterServiceTest {
 
         total.ifFound(System.out::println);
     }
+
+    @Test
+    void unknown_item_code() {
+        Result total = cashRegisterService.total("PEACH", Quantity.valueOf(1));
+
+        assertThat(total).isEqualTo(Result.notFound("PEACH"));
+
+        total.ifNotFound(System.out::println);
+    }
 }

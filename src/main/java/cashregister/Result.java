@@ -19,6 +19,8 @@ public abstract class Result {
 
     public abstract void ifFound(Consumer<Price> consumer);
 
+    public abstract void ifNotFound(Consumer<String> consumer);
+
     private static class Found extends Result {
         private final Price price;
 
@@ -54,6 +56,10 @@ public abstract class Result {
         @Override
         public void ifFound(Consumer<Price> consumer) {
             consumer.accept(price);
+        }
+
+        @Override
+        public void ifNotFound(Consumer<String> consumer) {
         }
     }
 
@@ -91,6 +97,11 @@ public abstract class Result {
 
         @Override
         public void ifFound(Consumer<Price> consumer) {
+        }
+
+        @Override
+        public void ifNotFound(Consumer<String> consumer) {
+            consumer.accept(invalidItemCode);
         }
     }
 }
