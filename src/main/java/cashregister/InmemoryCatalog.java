@@ -1,32 +1,24 @@
 package cashregister;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class InmemoryCatalog implements PriceQuery {
 
-    private final ItemReference[] itemReferences;
+    private final Map<String, Price> unitPriceByItemCode;
 
     public InmemoryCatalog(ItemReference... itemReferences) {
-        this.itemReferences = itemReferences;
+        unitPriceByItemCode = Stream.of(itemReferences).collect(Collectors.toMap(ItemReference::getItemCode, ItemReference::buildPrice));
     }
 
     public Result findPrice(String itemCode) {
 
-        return Stream.of(itemReferences)
-                .filter(itemReference -> itemReference.isCodeEqualTo(itemCode))
-                .map(ItemReference::buildPrice)
-                .map(Result::found)
-                .findFirst().orElseGet(() -> Result.notFound(itemCode));
+        Price price = unitPriceByItemCode.get(itemCode);
+        if (price != null)
+            return Result.found(price);
+        return Result.notFound(itemCode);
 
     }
 
-    private Result reduce(Result identity, BiFunction<Result, ItemReference, Result> reducer, ItemReference[] itemReferences){
-        Result r = identity;
-        for (ItemReference itemReference: itemReferences) {
-            r = reducer.apply(r, itemReference);
-        }
-        return r;
-    }
 }

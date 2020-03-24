@@ -13,6 +13,10 @@ public final class ItemReference {
         return new Builder();
     }
 
+    public String getItemCode() {
+        return itemCode;
+    }
+
     public static class Builder {
         private double unitPrice;
         private String itemCode;
