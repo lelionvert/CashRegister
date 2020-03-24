@@ -1,6 +1,7 @@
 package cashregister;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class Result {
@@ -15,6 +16,8 @@ public abstract class Result {
     private Result() {}
 
     public abstract Result map(Function<Price, Price> f);
+
+    public abstract void ifFound(Consumer<Price> consumer);
 
     private static class Found extends Result {
         private final Price price;
@@ -46,6 +49,11 @@ public abstract class Result {
         @Override
         public Result map(Function<Price, Price> f) {
             return Result.found(f.apply(price));
+        }
+
+        @Override
+        public void ifFound(Consumer<Price> consumer) {
+            consumer.accept(price);
         }
     }
 
@@ -79,6 +87,10 @@ public abstract class Result {
         @Override
         public Result map(Function<Price, Price> f) {
             return this;
+        }
+
+        @Override
+        public void ifFound(Consumer<Price> consumer) {
         }
     }
 }

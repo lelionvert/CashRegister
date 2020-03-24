@@ -28,5 +28,7 @@ public class CashRegisterServiceTest {
         Result total = cashRegisterService.total(itemCode, Quantity.valueOf(quantity));
 
         assertThat(total).isEqualTo(Result.found(Price.valueOf(quantity * unitPrice)));
+
+        total.ifFound(System.out::println);
     }
 }
