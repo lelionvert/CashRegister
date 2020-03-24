@@ -1,6 +1,8 @@
 package cashregister;
 
+import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 public final class InmemoryCatalog implements PriceQuery {
 
@@ -12,13 +14,11 @@ public final class InmemoryCatalog implements PriceQuery {
 
     public Result findPrice(String itemCode) {
 
-        return reduce(Result.notFound(itemCode),(result, itemReference) -> {
-            if (itemReference.isCodeEqualTo(itemCode)) {
-                return Result.found(itemReference.buildPrice());
-            }else{
-                return result;
-            }
-        }, itemReferences);
+        return Stream.of(itemReferences)
+                .filter(itemReference -> itemReference.isCodeEqualTo(itemCode))
+                .map(ItemReference::buildPrice)
+                .map(Result::found)
+                .findFirst().orElseGet(() -> Result.notFound(itemCode));
 
     }
 
